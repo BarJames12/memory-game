@@ -111,9 +111,9 @@ const checkCards = (e) => {
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "all";
-        setTimeout(() => card.classList.remove("toggleCard"), 500);
+        setTimeout(() => card.classList.remove("toggleCard"), 800);
       });
-      setTimeout(() => playerLives--, 500)
+      playerLives--;
       playerLivesCount.textContent = playerLives;
       if (playerLives === 0) {
         setTimeout(() => restrat(":( Try Again"), 1000);
