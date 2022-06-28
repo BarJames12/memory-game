@@ -95,7 +95,7 @@ const checkCards = (e) => {
   // Logic
   if (flippedCards.length === 2) {
     intervalFun("none", 100);
-    intervalFun("all", 1500);
+    intervalFun("all", 1200);
     
 
     if (flippedCards[0].getAttribute("name") === flippedCards[1].getAttribute("name")) {
@@ -111,12 +111,12 @@ const checkCards = (e) => {
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "all";
-        setTimeout(() => card.classList.remove("toggleCard"), 1000);
+        setTimeout(() => card.classList.remove("toggleCard"), 500);
       });
-      playerLives--;
+      setTimeout(() => playerLives--, 500)
       playerLivesCount.textContent = playerLives;
       if (playerLives === 0) {
-        restrat(":( Try Again");
+        setTimeout(() => restrat(":( Try Again"), 1000);
       }
     }
   }
