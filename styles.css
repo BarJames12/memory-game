@@ -54,3 +54,14 @@ section {
 .toggleCard{
     transform: rotateY(180deg);
 }
+
+.heart{ 
+  width: 45px;
+  opacity: 1;
+  transition: opacity 1s; 
+}
+
+
+.heart.fade {
+  opacity: 0;
+}

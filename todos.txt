@@ -1,3 +1,5 @@
-1. Add heart icon
+1. Add heart icon V
 2. Add landing page
-3. Show all card at start 
+3. Show all card at start
+4. swell alert 
+5. Add Timer

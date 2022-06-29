@@ -36,10 +36,39 @@ const randomize = () => {
 };
 randomize();
 
+const firstHint = () => {
+  card.classList.toggle("toggleCard");
+  setTimeout(() => card.classList.remove("toggleCard"), 500);
+};
+
+// const heart = document.getElementsByClassName("heart");
+//   const heartImg = document.createElement("img");
+//   heart.append(heartImg)
+
+const createHeart = () => {
+  let heartSrc = "./photos/like.png";
+  const hearts = document.getElementsByClassName("heart-span");
+  let newHeart = document.createElement("img");
+  hearts[0].append(newHeart);
+  newHeart.setAttribute("class", "heart");
+  newHeart.src = heartSrc;
+};
+
+const fadeOutHeart = () => {
+  newHeart.classList.toggle("fade");
+};
+const updateHearts = () => {
+  for (let i = 0; i < playerLives; i++) {
+    createHeart();
+  }
+};
+
 //Card Generate Func.
 const cardGenerator = () => {
   const cardData = randomize();
+  updateHearts();
   console.log(cardData);
+
   //generate the HTML
   cardData.forEach((item) => {
     const card = document.createElement("div");
@@ -52,6 +81,7 @@ const cardGenerator = () => {
     //Attach te info to the cards
     face.src = item.imgSrc;
     card.setAttribute("name", item.name);
+
     //Attach the card to the section
     section.appendChild(card);
     card.appendChild(face);
@@ -83,20 +113,17 @@ const checkCards = (e) => {
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
   const toggleCard = document.querySelectorAll(".toggleCard");
-  
-  
-  if(clickedCard.classList.contains("toggleCard")== true){ 
-  
+
+  if (clickedCard.classList.contains("toggleCard") == true) {
     clickedCard.style.pointerEvents = "none";
 
     console.log("testtt");
   }
-  
+
   // Logic
   if (flippedCards.length === 2) {
     intervalFun("none", 100);
     intervalFun("all", 1200);
-    
 
     if (flippedCards[0].getAttribute("name") === flippedCards[1].getAttribute("name")) {
       console.log("match");
@@ -115,6 +142,7 @@ const checkCards = (e) => {
       });
       playerLives--;
       playerLivesCount.textContent = playerLives;
+      updateHearts();
       if (playerLives === 0) {
         setTimeout(() => restrat(":( Try Again"), 1000);
       }
