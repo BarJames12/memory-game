@@ -87,6 +87,14 @@ const cardGenerator = () => {
     card.appendChild(face);
     card.appendChild(back);
 
+    setTimeout(() => {
+      card.classList.toggle("toggleCard");
+    }, 100);
+
+    setTimeout(() => {
+      card.classList.toggle("toggleCard");
+    }, 650);
+
     card.addEventListener("click", (e) => {
       card.classList.toggle("toggleCard");
       checkCards(e);
@@ -94,10 +102,6 @@ const cardGenerator = () => {
   });
 };
 
-// async function intervalFun(str , time) {
-//    setTimeout(() => console.log(str), section.style.pointerEvents = str,
-//   time);
-// }
 async function intervalFun(str, time) {
   return new Promise((resolve) => {
     setTimeout(() => {
