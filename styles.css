@@ -2,13 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none
+  user-select: none;
+  font-family: "Koulen", cursive;
 }
 
-
-
-body {
-  height: 100vh;
+body,html {
+  height: 100%;
   background-color: #e19191;
   display: flex;
   justify-content: center;
@@ -24,10 +23,65 @@ section {
   perspective: 800px;
 }
 
+.container{
+  background-color: #ffffff;
+  width: 40%;
+  min-width: 500px;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  padding: 20px 0;
+  padding-bottom: 50px;
+  border-radius: 10px;
+}
+.timerDisplay{
+  position: relative;
+  width: 92%;
+  background: #ffffff;
+  left: 4%;
+  padding: 40px 0;
+  font-family: 'Roboto mono',monospace;
+  color: #0381bb;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0,139,253,0.25);
+}
+
+.buttons{
+  width: 90%;
+  margin: 60px auto 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+.buttons button{
+  width: 120px;
+  height: 45px;
+  background-color: #205e94;
+  color: #ffffff;
+  border: none;
+  font-family: 'Poppins',sans-serif;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.buttons button:nth-last-child(2){
+  background-color: #d23332;
+}
+.buttons button:nth-last-child(1){
+  background-color: #20b380;
+}
+
+
+
 .card {
   position: relative;
   transform-style: preserve-3d;
-  transition: all 2s cubic-bezier(0.175 , 0.855, 0.32 , 1.275) ;
+  transition: all 2s cubic-bezier(0.175, 0.855, 0.32, 1.275);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
   transform: rotateY(0deg);
   border-radius: 30px;
@@ -51,16 +105,15 @@ section {
   border-radius: 30px;
 }
 
-.toggleCard{
-    transform: rotateY(180deg);
+.toggleCard {
+  transform: rotateY(180deg);
 }
 
-.heart{ 
+.heart {
   width: 45px;
   opacity: 1;
-  transition: opacity 1s; 
+  transition: opacity 1s;
 }
-
 
 .heart.fade {
   opacity: 0;

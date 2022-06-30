@@ -1,7 +1,7 @@
 // Grabs a couple of thing
 const section = document.querySelector("section");
 const playerLivesCount = document.querySelector("span");
-let playerLives = 6;
+let playerLives = 999;
 window.ondragstart = function () {
   return false;
 };
@@ -66,7 +66,7 @@ const updateHearts = () => {
 //Card Generate Func.
 const cardGenerator = () => {
   const cardData = randomize();
-  updateHearts();
+  // updateHearts();
   console.log(cardData);
 
   //generate the HTML
@@ -89,11 +89,13 @@ const cardGenerator = () => {
 
     setTimeout(() => {
       card.classList.toggle("toggleCard");
-    }, 100);
+      card.style.pointerEvents = "none";
+    }, 200);
 
     setTimeout(() => {
       card.classList.toggle("toggleCard");
-    }, 650);
+      card.style.pointerEvents = "all";
+    }, 1500);
 
     card.addEventListener("click", (e) => {
       card.classList.toggle("toggleCard");
@@ -110,14 +112,14 @@ async function intervalFun(str, time) {
     }, time);
   });
 }
-
 //Check Cards
 const checkCards = (e) => {
   const clickedCard = e.target;
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
   const toggleCard = document.querySelectorAll(".toggleCard");
-
+  startClock()
+  
   if (clickedCard.classList.contains("toggleCard") == true) {
     clickedCard.style.pointerEvents = "none";
 
@@ -146,16 +148,45 @@ const checkCards = (e) => {
       });
       playerLives--;
       playerLivesCount.textContent = playerLives;
-      updateHearts();
+      // updateHearts();
       if (playerLives === 0) {
-        setTimeout(() => restrat(":( Try Again"), 1000);
+        stopClock();
+
+        setTimeout(
+          () =>
+            Swal.fire({
+              title: "Oops!",
+              text: "Please try again",
+              icon: "error",
+              confirmButtonText: "OK",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                restrat();
+              }
+            }),
+          500
+        );
       }
     }
   }
 
   //Run A check if we won
   if (toggleCard.length === 16) {
-    setTimeout(() => restrat("YOU WON!!!"), 500);
+    stopClock();
+    setTimeout(
+      () =>
+        Swal.fire({
+          title: "Good Job!",
+          text: `You did it in ${timerRef.innerHTML} sec`,
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            restrat();
+          }
+        }),
+      500
+    );
   }
 };
 
@@ -180,7 +211,52 @@ const restrat = (text) => {
   // });
   // playerLives = 6;
   // playerLivesCount.textContent = playerLives;
-  // setTimeout(() => window.alert(text) ,100 )
-  setTimeout(() => location.reload(), window.alert(text), 2000);
+  // // setTimeout(() => window.alert(text) ,100 )
+  location.reload();
 };
 cardGenerator();
+
+let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+let timerRef = document.querySelector(".timerDisplay");
+let int = null;
+console.log(timerRef.innerHTML);
+
+const startClock = () => {
+  if (int !== null) {
+    clearInterval(int);
+  }
+  int = setInterval(displayTimer, 10);
+};
+
+const stopClock = () => {
+  clearInterval(int);
+};
+
+// document.getElementById("resetTimer").addEventListener("click", () => {
+//   clearInterval(int);
+//   [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+//   timerRef.innerHTML = "00 : 00 : 00 : 000 ";
+// });
+
+function displayTimer() {
+  milliseconds += 10;
+  if (milliseconds == 1000) {
+    milliseconds = 0;
+    seconds++;
+    if (seconds == 60) {
+      seconds = 0;
+      minutes++;
+      if (minutes == 60) {
+        minutes = 0;
+        hours++;
+      }
+    }
+  }
+
+  let h = hours < 10 ? "0" + hours : hours;
+  let m = minutes < 10 ? "0" + minutes : minutes;
+  let s = seconds < 10 ? "0" + seconds : seconds;
+  let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+  timerRef.innerHTML = ` ${h} : ${m} : ${s} : ${ms}`;
+}
