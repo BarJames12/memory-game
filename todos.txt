@@ -1,5 +1,7 @@
 1. Add heart icon V
 2. Add landing page
 3. Show all card at start V
-4. swell alert 
-5. Add Timer
+4. swell alert V 
+5. Add Timer V
+6. Sound to cards
+7. Move into local storage

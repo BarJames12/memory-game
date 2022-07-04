@@ -1,18 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
-  font-family: "Koulen", cursive;
 }
 
-body,html {
+body,
+html {
   height: 100%;
-  background-color: #e19191;
+  background-image: linear-gradient(#a1c4fd 0%, #c2e9fb 100%);
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: "Press Start 2P", cursive;
 }
 
 section {
@@ -23,61 +26,6 @@ section {
   perspective: 800px;
 }
 
-.container{
-  background-color: #ffffff;
-  width: 40%;
-  min-width: 500px;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-  padding: 20px 0;
-  padding-bottom: 50px;
-  border-radius: 10px;
-}
-.timerDisplay{
-  position: relative;
-  width: 92%;
-  background: #ffffff;
-  left: 4%;
-  padding: 40px 0;
-  font-family: 'Roboto mono',monospace;
-  color: #0381bb;
-  font-size: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0,139,253,0.25);
-}
-
-.buttons{
-  width: 90%;
-  margin: 60px auto 0 auto;
-  display: flex;
-  justify-content: space-around;
-}
-.buttons button{
-  width: 120px;
-  height: 45px;
-  background-color: #205e94;
-  color: #ffffff;
-  border: none;
-  font-family: 'Poppins',sans-serif;
-  font-size: 18px;
-  border-radius: 5px;
-  cursor: pointer;
-  outline: none;
-}
-
-.buttons button:nth-last-child(2){
-  background-color: #d23332;
-}
-.buttons button:nth-last-child(1){
-  background-color: #20b380;
-}
-
-
-
 .card {
   position: relative;
   transform-style: preserve-3d;
@@ -86,6 +34,7 @@ section {
   transform: rotateY(0deg);
   border-radius: 30px;
 }
+
 
 .face,
 .back {
@@ -97,24 +46,74 @@ section {
 }
 
 .back {
-  /* background-color: aliceblue; */
   background-image: url("./photos/question-mark.png");
-  background-size: 100%;
+  background-size: 85%;
   background-color: white;
   backface-visibility: hidden;
   border-radius: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .toggleCard {
   transform: rotateY(180deg);
 }
 
-.heart {
-  width: 45px;
-  opacity: 1;
-  transition: opacity 1s;
+.statusBar {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  width: 608px;
+  padding: 1.5%;
+  margin-bottom: 15px;
+  font-weight: 400;
+  border-radius: 10px;
+  gap: 20px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%) #989898;
+  background-blend-mode: multiply, multiply;
+  font-size: 15px;
 }
 
-.heart.fade {
-  opacity: 0;
+.timerDisplay {
+  background-color: #4f6584;
+  color: #fff;
+  font-family: "Roboto mono", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 10px 5px;
+}
+
+.movesCountDisplay {
+  background-color: #fff;
+  color: #5d779a;
+  padding: 10px 5px;
+  gap: 10px;
+  border-radius: 4px;
+  
+}
+.left {
+  display: flex;
+  gap: 20px;
+}
+
+.right {
+  display: flex;
+  width: 350px;
+  align-items: center;
+  justify-content: center;
+}
+
+.highScore > h4 {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  color: #FFD15B;
+}
+.highScore > span { 
+  color: white;
 }

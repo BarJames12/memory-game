@@ -1,12 +1,55 @@
 // Grabs a couple of thing
 const section = document.querySelector("section");
-const playerLivesCount = document.querySelector("span");
-let playerLives = 999;
+const movesCounter = document.getElementById("counter");
+let playerMoves = 0;
+let newRecrod = Boolean;
+
 window.ondragstart = function () {
   return false;
 };
 // Link text
-playerLivesCount.textContent = playerLives;
+movesCounter.textContent = playerMoves;
+
+// Stopper things
+let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+let timerRef = document.querySelector(".timerDisplay");
+let int = null;
+console.log(timerRef.innerHTML);
+
+const startClock = () => {
+  if (int !== null) {
+    clearInterval(int);
+  }
+  int = setInterval(displayTimer, 10);
+};
+
+const stopClock = () => {
+  clearInterval(int);
+};
+
+function displayTimer() {
+  milliseconds += 10;
+  if (milliseconds == 1000) {
+    milliseconds = 0;
+    seconds++;
+    if (seconds == 60) {
+      seconds = 0;
+      minutes++;
+    }
+  }
+
+  let h = hours < 10 ? "0" + hours : hours;
+  let m = minutes < 10 ? "0" + minutes : minutes;
+  let s = seconds < 10 ? "0" + seconds : seconds;
+  let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+
+  timerRef.innerHTML = `${m}:${s}:${ms}`;
+}
+
+let gameResult = {
+  playerMoves: playerMoves,
+  playerTime: timerRef.innerHTML,
+};
 
 //Generate the data
 
@@ -41,27 +84,68 @@ const firstHint = () => {
   setTimeout(() => card.classList.remove("toggleCard"), 500);
 };
 
+const saveGameResult = () => {
+  gameResult.playerMoves = playerMoves;
+  gameResult.playerTime = timerRef.innerHTML;
+  localStorage.setItem("playerRecord", JSON.stringify(gameResult));
+};
+
+const gettingBestTime = () => {
+  let highScore = localStorage.getItem("playerRecord");
+  const highScoreDisplay = document.getElementById("highScoreDisplay");
+
+  highScore = JSON.parse(highScore);
+  if (highScore == null) {
+    return (highScoreDisplay.textContent = "No score to beat");
+  }
+
+  highScoreDisplay.textContent = highScore.playerTime + " " + "in " + highScore.playerMoves + " " + "Moves";
+};
+
+gettingBestTime();
+
+const checkPlayerRecord = (currentMoves, currentTime) => {
+  let playerRecord = localStorage.getItem("playerRecord");
+  playerRecord = JSON.parse(playerRecord);
+
+  if (playerRecord == null) {
+    saveGameResult();
+    return;
+  }
+
+  let savedMoves = playerRecord.playerMoves;
+  let savedTime = playerRecord.playerTime;
+
+  if (savedTime > currentTime) {
+    gameResult.playerTime = currentTime;
+    gameResult.playerMoves = currentMoves;
+    localStorage.setItem("playerRecord", JSON.stringify(gameResult));
+    newRecrod = true;
+  }
+  // else if (savedMoves > currentMoves) {
+  //   gameResult.playerMoves = currentMoves;
+  //   localStorage.setItem("playerRecord", JSON.stringify(gameResult));
+  // }
+};
+
 // const heart = document.getElementsByClassName("heart");
 //   const heartImg = document.createElement("img");
 //   heart.append(heartImg)
 
-const createHeart = () => {
-  let heartSrc = "./photos/like.png";
-  const hearts = document.getElementsByClassName("heart-span");
-  let newHeart = document.createElement("img");
-  hearts[0].append(newHeart);
-  newHeart.setAttribute("class", "heart");
-  newHeart.src = heartSrc;
-};
+// const createHeart = () => {
+//   let heartSrc = "./photos/like.png";
+//   const hearts = document.getElementsByClassName("heart-span");
+//   let newHeart = document.createElement("img");
+//   hearts[0].append(newHeart);
+//   newHeart.setAttribute("class", "heart");
+//   newHeart.src = heartSrc;
+// };
 
-const fadeOutHeart = () => {
-  newHeart.classList.toggle("fade");
-};
-const updateHearts = () => {
-  for (let i = 0; i < playerLives; i++) {
-    createHeart();
-  }
-};
+// const updateHearts = () => {
+//   for (let i = 0; i < playerLives; i++) {
+//     createHeart();
+//   }
+// };
 
 //Card Generate Func.
 const cardGenerator = () => {
@@ -108,7 +192,6 @@ async function intervalFun(str, time) {
   return new Promise((resolve) => {
     setTimeout(() => {
       section.style.pointerEvents = str;
-      console.log(str);
     }, time);
   });
 }
@@ -118,12 +201,12 @@ const checkCards = (e) => {
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
   const toggleCard = document.querySelectorAll(".toggleCard");
-  startClock()
-  
+  let currentMoves = (gameResult.playerMoves = playerMoves);
+  let currnetTime = (gameResult.playerTime = timerRef.innerHTML);
+  startClock();
+
   if (clickedCard.classList.contains("toggleCard") == true) {
     clickedCard.style.pointerEvents = "none";
-
-    console.log("testtt");
   }
 
   // Logic
@@ -139,45 +222,32 @@ const checkCards = (e) => {
       });
     } else {
       console.log("wrong!");
-      // setTimeout(() => card.classList.remove("toggleCard"),
-      //    500);
+
+      playerMoves++;
+      movesCounter.textContent = playerMoves;
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "all";
         setTimeout(() => card.classList.remove("toggleCard"), 800);
       });
-      playerLives--;
-      playerLivesCount.textContent = playerLives;
-      // updateHearts();
-      if (playerLives === 0) {
-        stopClock();
-
-        setTimeout(
-          () =>
-            Swal.fire({
-              title: "Oops!",
-              text: "Please try again",
-              icon: "error",
-              confirmButtonText: "OK",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                restrat();
-              }
-            }),
-          500
-        );
-      }
     }
   }
 
   //Run A check if we won
   if (toggleCard.length === 16) {
     stopClock();
+    checkPlayerRecord(currentMoves, currnetTime);
+    let finishTitle = String;
+    if (newRecrod === true) {
+      finishTitle = "Hugee! New Highscore!!";
+    } else {
+      finishTitle = "Nice!";
+    }
     setTimeout(
       () =>
         Swal.fire({
-          title: "Good Job!",
-          text: `You did it in ${timerRef.innerHTML} sec`,
+          title: finishTitle,
+          text: `You did it in ${timerRef.innerHTML} sec and ${playerMoves} moves`,
           icon: "success",
           confirmButtonText: "OK",
         }).then((result) => {
@@ -195,12 +265,9 @@ const restrat = (text) => {
   // let cardData = randomize();
   // let faces = document.querySelectorAll(".face");
   // let cards = document.querySelectorAll(".card");
-
   // section.style.pointerEvents = "none";
-
   // cardData.forEach((item, index) => {
   //   cards[index].classList.remove("toggleCard");
-
   //   //Randomize
   //   setTimeout(() => {
   //     cards[index].style.pointerEvent = "all";
@@ -215,48 +282,3 @@ const restrat = (text) => {
   location.reload();
 };
 cardGenerator();
-
-let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-let timerRef = document.querySelector(".timerDisplay");
-let int = null;
-console.log(timerRef.innerHTML);
-
-const startClock = () => {
-  if (int !== null) {
-    clearInterval(int);
-  }
-  int = setInterval(displayTimer, 10);
-};
-
-const stopClock = () => {
-  clearInterval(int);
-};
-
-// document.getElementById("resetTimer").addEventListener("click", () => {
-//   clearInterval(int);
-//   [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-//   timerRef.innerHTML = "00 : 00 : 00 : 000 ";
-// });
-
-function displayTimer() {
-  milliseconds += 10;
-  if (milliseconds == 1000) {
-    milliseconds = 0;
-    seconds++;
-    if (seconds == 60) {
-      seconds = 0;
-      minutes++;
-      if (minutes == 60) {
-        minutes = 0;
-        hours++;
-      }
-    }
-  }
-
-  let h = hours < 10 ? "0" + hours : hours;
-  let m = minutes < 10 ? "0" + minutes : minutes;
-  let s = seconds < 10 ? "0" + seconds : seconds;
-  let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
-
-  timerRef.innerHTML = ` ${h} : ${m} : ${s} : ${ms}`;
-}

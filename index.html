@@ -9,15 +9,22 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-        <div class="timerDisplay">
-             00 : 00 : 000
-         </div>
-
+    <div class="statusBar">
+      <div class="left">
+        <div class="movesCountDisplay" style="display: flex">
+          <p>Moves:</p>
+          <span id="counter"></span>
+        </div>
+        <div class="timerDisplay">00:00:000</div>
+      </div>
+      <div class="right">
+        <div class="highScore">
+          <h4>Highscore:</h4>
+          <span id="highScoreDisplay"></span>
+        </div>
+      </div>
     </div>
 
-
-    <h1>Lives : <span class="heart-span"></span> <span class="playerLiveCount"> </span></h1>
     <section></section>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
