@@ -8,6 +8,16 @@
 
 ### https://barjames12.github.io/memory-game/
 </br>
-A simple memory game, built with HTML, CSS and Vanilla JavaScript. </br>
-Allows you to challenge your memory skill with time pressure. </br>
+A simple memory game, allows you to challenge your memory skill with time pressure. </br>
 Your record will be saved, so you can try to beat your record. </br>
+
+### Built With
+
+
+* [![Html][Html]][Html-url]
+* [![Css][Css]][Css-url]
+* [![JavaScript][JavaScript]][JavaScript]
+
+
+
+
