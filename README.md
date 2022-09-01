@@ -12,10 +12,7 @@ A simple memory game, allows you to challenge your memory skill with time pressu
 Your record will be saved, so you can try to beat your record. </br>
 
 ### Built With
-
-![The San Juan Mountains are beautiful!](/assets/images/san-juan-mountains.jpg "San Juan Mountains")
-
-* [![Html](https://cdn-icons-png.flaticon.com/512/888/888859.png)
+![html-5](https://user-images.githubusercontent.com/84085280/187910769-1412dc99-5ad2-4552-9104-aa27090e44cf.png)
 * [![Css][Css]][Css-url]
 * [![JavaScript][JavaScript]][JavaScript]
 
