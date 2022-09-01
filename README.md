@@ -12,7 +12,7 @@ A simple memory game, allows you to challenge your memory skill with time pressu
 Your record will be saved, so you can try to beat your record. </br>
 
 ### Built With
- * ![html-5](https://user-images.githubusercontent.com/84085280/187910933-fc6c6139-410f-4ba4-a024-f3b04b4577b9.png)
+ * ![html-5](https://user-images.githubusercontent.com/84085280/187911078-089c60e8-6613-4660-be7b-edab309786a8.png)
 * [![Css][Css]][Css-url]
 * [![JavaScript][JavaScript]][JavaScript]
 
