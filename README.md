@@ -13,8 +13,9 @@ Your record will be saved, so you can try to beat your record. </br>
 
 ### Built With
 
+![The San Juan Mountains are beautiful!](/assets/images/san-juan-mountains.jpg "San Juan Mountains")
 
-* [![Html][Html]][Html-url]
+* [![Html](https://cdn-icons-png.flaticon.com/512/888/888859.png)
 * [![Css][Css]][Css-url]
 * [![JavaScript][JavaScript]][JavaScript]
 
