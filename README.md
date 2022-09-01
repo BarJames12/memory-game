@@ -6,7 +6,7 @@
 </div>
 </br>
 
-## https://barjames12.github.io/memory-game/
+### https://barjames12.github.io/memory-game/
 </br>
 A simple memory game, built with HTML, CSS and Vanilla JavaScript. </br>
 Allows you to challenge your memory skill with time pressure. </br>
