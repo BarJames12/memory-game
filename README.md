@@ -1,4 +1,4 @@
-# 🧩 memory-game
+# 🧩 Memory-game
 
 
 <div align="center">
